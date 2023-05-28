@@ -1,0 +1,865 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.30-MariaDB
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema euphony
+--
+
+CREATE DATABASE IF NOT EXISTS euphony;
+USE euphony;
+
+--
+-- Definition of table `about_us_tbl`
+--
+
+DROP TABLE IF EXISTS `about_us_tbl`;
+CREATE TABLE `about_us_tbl` (
+  `Id` int(10) unsigned NOT NULL,
+  `Title` varchar(45) NOT NULL,
+  `Content` text NOT NULL,
+  `Image` text NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `about_us_tbl`
+--
+
+/*!40000 ALTER TABLE `about_us_tbl` DISABLE KEYS */;
+INSERT INTO `about_us_tbl` (`Id`,`Title`,`Content`,`Image`) VALUES 
+ (1,'','     Euphony Music Center and Studio started at Makati Cinema Square in Pasong Tamo Makati City in the year 2001. This was managed by the founder Ms. ERLINDA M. ALBAY Â handles the selling of musical instruments such pianos, guitar, keyboard etc. She also acted as the HR personnel in charge of screening qualified sales staff and hiring of qualified music teachers for the music lesson offered by the company. \r\n\r\n     Aside from musical services offered the company also engaged in putting up exhibit in different malls within Metro Manila and nearby provinces.\r\n\r\n     These exhibits intensified the campaign promoting the music school and sale of musical instrument. At present time, after almost two decade in the music industry, Euphony Music Center and Studio has expended two to more branches, one at level 1 of Robinsons place Dasmarinas and the most recent one is at level 2 SM City TreceMartires Cavite.','1585413834.png'),
+ (2,'Mission','To develop & inspire students to achieve their musical and artistic potential by providing them quality education.\r\n',''),
+ (3,'Vision','To deliver the highest standard of music and art education that will develop the best musician and artist in each student.\r\n','');
+/*!40000 ALTER TABLE `about_us_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `activity_log`
+--
+
+DROP TABLE IF EXISTS `activity_log`;
+CREATE TABLE `activity_log` (
+  `Trans_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL,
+  `Detail` text NOT NULL,
+  `User_Id` int(11) NOT NULL,
+  PRIMARY KEY (`Trans_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `activity_log`
+--
+
+/*!40000 ALTER TABLE `activity_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `activity_log` ENABLE KEYS */;
+
+
+--
+-- Definition of table `attendance_tbl`
+--
+
+DROP TABLE IF EXISTS `attendance_tbl`;
+CREATE TABLE `attendance_tbl` (
+  `Stud_class_Id` int(10) unsigned NOT NULL,
+  `Date_att` date NOT NULL,
+  `Time_att` time NOT NULL,
+  `User_Id` int(11) NOT NULL,
+  `Remarks` varchar(255) NOT NULL,
+  `Att_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`Att_Id`),
+  KEY `FK_Stud_class_Id` (`Stud_class_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `attendance_tbl`
+--
+
+/*!40000 ALTER TABLE `attendance_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attendance_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `branches_tbl`
+--
+
+DROP TABLE IF EXISTS `branches_tbl`;
+CREATE TABLE `branches_tbl` (
+  `Branch_Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Branch_desc` varchar(255) NOT NULL,
+  `Branch_location` varchar(255) NOT NULL,
+  `Branch_image` text NOT NULL,
+  `Level` varchar(255) NOT NULL,
+  `Phone_no` varchar(11) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Branch_image_2` text NOT NULL,
+  `randSalt3` int(11) NOT NULL,
+  PRIMARY KEY (`Branch_Id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `branches_tbl`
+--
+
+/*!40000 ALTER TABLE `branches_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `branches_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `category_tbl`
+--
+
+DROP TABLE IF EXISTS `category_tbl`;
+CREATE TABLE `category_tbl` (
+  `Category_Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Category_title` varchar(45) NOT NULL,
+  `Date_added` date NOT NULL,
+  `Time_added` time NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Category_Id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category_tbl`
+--
+
+/*!40000 ALTER TABLE `category_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `category_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `class_tbl`
+--
+
+DROP TABLE IF EXISTS `class_tbl`;
+CREATE TABLE `class_tbl` (
+  `Class_Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Tea_less_Id` int(10) unsigned DEFAULT NULL,
+  `Day` varchar(45) NOT NULL,
+  `Time` varchar(45) NOT NULL,
+  `Status` varchar(255) NOT NULL,
+  PRIMARY KEY (`Class_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `class_tbl`
+--
+
+/*!40000 ALTER TABLE `class_tbl` DISABLE KEYS */;
+INSERT INTO `class_tbl` (`Class_Id`,`Tea_less_Id`,`Day`,`Time`,`Status`) VALUES 
+ (28,12,'3','11','Available'),
+ (29,13,'3','2','Available'),
+ (30,1,'3','1','Available'),
+ (31,13,'3','12','Available'),
+ (33,1,'4','1','Occupied'),
+ (34,12,'4','11','Occupied'),
+ (35,2,'4','4','Available'),
+ (36,11,'4','1','Occupied'),
+ (37,2,'3','4','Occupied'),
+ (39,10,'3','4','Available'),
+ (40,1,'4','12','Occupied'),
+ (41,16,'4','4','Available'),
+ (42,11,'5','4','Available'),
+ (43,17,'1','1','Available'),
+ (44,17,'1','4','Available');
+/*!40000 ALTER TABLE `class_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `days_tbl`
+--
+
+DROP TABLE IF EXISTS `days_tbl`;
+CREATE TABLE `days_tbl` (
+  `Day_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Day` varchar(255) NOT NULL,
+  PRIMARY KEY (`Day_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `days_tbl`
+--
+
+/*!40000 ALTER TABLE `days_tbl` DISABLE KEYS */;
+INSERT INTO `days_tbl` (`Day_Id`,`Day`) VALUES 
+ (1,'Monday'),
+ (2,'Tuesday'),
+ (3,'Wednesday'),
+ (4,'Thursday'),
+ (5,'Friday'),
+ (6,'Saturday'),
+ (7,'Sunday');
+/*!40000 ALTER TABLE `days_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `gallery`
+--
+
+DROP TABLE IF EXISTS `gallery`;
+CREATE TABLE `gallery` (
+  `G_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `GC_Id` int(11) NOT NULL,
+  `Description` text NOT NULL,
+  `Image` text NOT NULL,
+  `Date_added` date DEFAULT NULL,
+  `Time_added` time DEFAULT NULL,
+  PRIMARY KEY (`G_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gallery`
+--
+
+/*!40000 ALTER TABLE `gallery` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gallery` ENABLE KEYS */;
+
+
+--
+-- Definition of table `gallery_category`
+--
+
+DROP TABLE IF EXISTS `gallery_category`;
+CREATE TABLE `gallery_category` (
+  `GC_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` text NOT NULL,
+  `Date_created` date NOT NULL,
+  `Time_created` time NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`GC_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gallery_category`
+--
+
+/*!40000 ALTER TABLE `gallery_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gallery_category` ENABLE KEYS */;
+
+
+--
+-- Definition of table `lessons_tbl`
+--
+
+DROP TABLE IF EXISTS `lessons_tbl`;
+CREATE TABLE `lessons_tbl` (
+  `Lesson_Id` varchar(45) NOT NULL,
+  `Lesson_desc` varchar(45) NOT NULL,
+  `Amount` decimal(10,2) NOT NULL,
+  `No_of_lesson` int(11) NOT NULL,
+  `Icon` text NOT NULL,
+  `Cover_image` text NOT NULL,
+  `Content` text NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Lesson_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lessons_tbl`
+--
+
+/*!40000 ALTER TABLE `lessons_tbl` DISABLE KEYS */;
+INSERT INTO `lessons_tbl` (`Lesson_Id`,`Lesson_desc`,`Amount`,`No_of_lesson`,`Icon`,`Cover_image`,`Content`,`Status`) VALUES 
+ ('B12','Banduria','5950.00',12,'1585492100.png','1585303769.png','History\r\n\r\nEuphony Music Center and Studio started at Makati Cinema Square in Pasong Tamo Makati City in the year 2001. This was managed by the founder Ms. ERLINDA M. ALBAY Â handles the selling of musical instruments such pianos, guitar, keyboard etc. She also acted as the HR personnel in charge of screening qualified sales staff and hiring of qualified music teachers for the music lesson offered by the company.\r\n\r\nAside from musical services offered the company also engaged in putting up exhibit in different malls within Metro Manila and nearby provinces. These exhibits intensified the campaign promoting the music school and sale of musical instrument.\r\n\r\nAt present time, after almost two decade in the music industry, Euphony Music Center and Studio has expended two to more branches, one at level 1 of Robinsons place Dasmarinas and the most recent one is at level 2 SM City TreceMartires Cavite.',1),
+ ('B24','Banduria','11900.00',24,'1585492113.png','Banduria-24.jpg','',1),
+ ('B36','Banduria','17850.00',36,'1585492127.png','Banduria-36.jpg','',1),
+ ('B48','Banduria','23800.00',48,'','Banduria-48.jpg','',1),
+ ('C12','Cello','12500.00',12,'','','',1),
+ ('C24','Cello','25000.00',24,'','','',1),
+ ('C36','Cello','37500.00',36,'','','',1),
+ ('C48','Cello','50000.00',48,'','','',1),
+ ('D12','Drum','5950.00',12,'','Drum-12.jpg','',1),
+ ('D24','Drum','11900.00',24,'','Drum-24.jpg','',1),
+ ('D36','Drum','17850.00',36,'','Drum-36.jpg','',1),
+ ('D48','Drum','23800.00',48,'','Drum-48.jpg','',1),
+ ('DANCE12','Dance Lesson','5950.00',12,'','','',1),
+ ('DANCE24','Dance Lesson -(2 Free Lessons)','11900.00',26,'','','',1),
+ ('DANCE36','Dance Lesson - (3 Free Lessons)','17850.00',39,'','','',1),
+ ('DANCE48','Dance Lesson - (4 Free Lessons)','23800.00',52,'','','',1),
+ ('G12','Guitar','5950.00',12,'1585491666.png','Guitar-12.jpg','<p>What you&#39;ll learn</p>\r\n\r\n<p>\\r\\n\\r\\n</p>\r\n\r\n<p>\\\\r\\\\n\\\\r\\\\n</p>\r\n\r\n<p>\\r\\n\\r\\n</p>\r\n\r\n<ul>\r\n	<li>\\r\\n</li>\r\n	<li>\\\\r\\\\n</li>\r\n	<li>\\r\\n</li>\r\n	<li>Basic Strumming</li>\r\n	<li>\\r\\n</li>\r\n	<li>\\\\r\\\\n</li>\r\n	<li>\\r\\n</li>\r\n	<li>Major and Minor Chords</li>\r\n	<li>\\r\\n</li>\r\n	<li>\\\\r\\\\n</li>\r\n	<li>\\r\\n</li>\r\n	<li>Scala</li>\r\n	<li>\\r\\n</li>\r\n	<li>\\\\r\\\\n</li>\r\n	<li>\\r\\n</li>\r\n	<li>Notes (Pattern)</li>\r\n	<li>\\r\\n</li>\r\n	<li>\\\\r\\\\n</li>\r\n	<li>\\r\\n</li>\r\n</ul>',1),
+ ('G24','Guitar','11900.00',24,'1585491840.png','Guitar-24.jpg','',1),
+ ('G36','Guitar','17850.00',36,'','Guitar-36.jpg','',1),
+ ('G48','Guitar','23800.00',48,'','Guitar-48.jpg','',1),
+ ('OA12','Oil Acrylic','8500.00',12,'','','',1),
+ ('OA24','Oil Acrylic','17000.00',24,'','','',1),
+ ('OA36','Oil Acrylic','25500.00',36,'','','',1),
+ ('OA48','Oil Acrylic','34000.00',48,'','','',1),
+ ('PC12','Pencil/Charcoal','5950.00',12,'','','',1),
+ ('PC24','Pencil/Charcoal','11900.00',24,'','','',1),
+ ('PC36','Pencil/Charcoal','17850.00',36,'','','',1),
+ ('PC48','Pencil/Charcoal','23800.00',48,'','','',1),
+ ('PO12','Piano/Organ','6550.00',12,'','Keyboard-12.jpg','',1),
+ ('PO24','Piano/Organ','13100.00',24,'','Keyboard-24.jpg','',1),
+ ('PO36','Piano/Organ','19650.00',36,'','Keyboard-36.jpg','',1),
+ ('PO48','Piano/Organ','26200.00',48,'','Keyboard-48.jpg','',1),
+ ('PTL12','Pastel','6550.00',12,'','','',1),
+ ('PTL24','Pastel','13100.00',24,'','','',1),
+ ('PTL36','Pastel','19650.00',36,'','','',1),
+ ('PTL48','Pastel','26200.00',48,'','','',1),
+ ('SX12','Saxophone','7550.00',12,'','Saxophone-12.jpg','',1),
+ ('SX24','Saxophone','15100.00',24,'','Saxophone-24.jpg','',1),
+ ('SX36','Saxophone','22650.00',36,'','Saxophone-36.jpg','',1),
+ ('SX48','Saxophone','30200.00',48,'1585492411.png','1585492398.png','',1),
+ ('V12','Voice','6950.00',12,'','','',1),
+ ('V24','Voice','13900.00',24,'','','',1),
+ ('V36','Voice','20850.00',36,'','','',1),
+ ('V48','Voice','27800.00',48,'','','',1),
+ ('VIO12','Violin','7350.00',12,'','Violin-12.jpg','',1),
+ ('VIO24','Violin','14700.00',24,'','Violin-24.jpg','',1),
+ ('VIO36','Violin','22050.00',36,'','Violin-36.jpg','',1),
+ ('VIO48','Violin','29400.00',48,'','Violin-48.jpg','<p>Lorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con Estas</p>\r\n\r\n<ul>\r\n	<li>Lorem Ipsum Dolor Sit Amet Con Estas</li>\r\n	<li>Lorem Ipsum Dolor Sit Amet Con Estas</li>\r\n	<li>Lorem Ipsum Dolor Sit Amet Con Estas</li>\r\n</ul>\r\n',1),
+ ('WC12','Water Color','7500.00',12,'','','',1),
+ ('WC24','Water Color','15000.00',24,'','','',1),
+ ('WC36','Water Color','22500.00',36,'','','Lorem Ipsum',1);
+/*!40000 ALTER TABLE `lessons_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages` (
+  `Mess_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Sender` int(11) NOT NULL,
+  `Receiver` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL,
+  `Status` int(11) NOT NULL,
+  `Title` varchar(255) NOT NULL,
+  `Description` text NOT NULL,
+  `Draft` int(11) NOT NULL,
+  `Important` int(11) NOT NULL,
+  PRIMARY KEY (`Mess_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` (`Mess_Id`,`Sender`,`Receiver`,`Date`,`Time`,`Status`,`Title`,`Description`,`Draft`,`Important`) VALUES 
+ (30,2,3,'2019-10-12','15:08:38',1,'New Product Here','<p>Lorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit AmetLorem Ipsum Dolor Sit Amet222222</p>\r\n',0,0),
+ (32,3,2,'2019-10-12','16:16:46',1,'New Lesson Here','<p>Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum</p>\r\n',0,0),
+ (33,2,3,'2019-10-12','16:17:14',1,'New Lesson Here','<p>Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum Got It!</p>\r\n',0,0),
+ (34,2,3,'2019-10-28','15:52:31',1,'New Lesson','<p>Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum</p>\r\n',0,0),
+ (35,2,1,'2020-02-25','06:53:51',0,'Request for Approval','<p>Lorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con Estas&nbsp;Lorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con EstasLorem Ipsum Dolor Sit Amet Con Estas</p>\r\n',0,0);
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+
+
+--
+-- Definition of table `policy_tbl`
+--
+
+DROP TABLE IF EXISTS `policy_tbl`;
+CREATE TABLE `policy_tbl` (
+  `Content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `policy_tbl`
+--
+
+/*!40000 ALTER TABLE `policy_tbl` DISABLE KEYS */;
+INSERT INTO `policy_tbl` (`Content`) VALUES 
+ ('<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<ul>\r\n	<li>Students must come on or before the scheduled time.</li>\r\n	<li>Students must call/inform the office a day before if the student cannot attend the lesson, otherwise the lesson will be <strong><span style=\"color:#e74c3c\">FORFEITED</span></strong>.</li>\r\n	<li>Payment made are non-refundable, but transferrable.</li>\r\n	<li>Students are requested to pay on time.</li>\r\n	<li>Students are not allowed to eat or drink inside the room.</li>\r\n	<li>Enrolled lessons are valid&nbsp;for one year ( based on the O.R/A.R date )</li>\r\n</ul>\r\n\r\n<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></p>\r\n\r\n<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PLEASE BE GUIDED ACCORDINGLY</strong></p>\r\n');
+/*!40000 ALTER TABLE `policy_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `prod_invt_tbl`
+--
+
+DROP TABLE IF EXISTS `prod_invt_tbl`;
+CREATE TABLE `prod_invt_tbl` (
+  `Prod_Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Branch_Id` int(10) unsigned NOT NULL,
+  `Quantity` int(11) NOT NULL,
+  PRIMARY KEY (`Prod_Id`),
+  KEY `FK_Branch_Id` (`Branch_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prod_invt_tbl`
+--
+
+/*!40000 ALTER TABLE `prod_invt_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prod_invt_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `product_settings`
+--
+
+DROP TABLE IF EXISTS `product_settings`;
+CREATE TABLE `product_settings` (
+  `Prod_sett_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(255) NOT NULL,
+  `Number` int(11) NOT NULL,
+  PRIMARY KEY (`Prod_sett_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_settings`
+--
+
+/*!40000 ALTER TABLE `product_settings` DISABLE KEYS */;
+INSERT INTO `product_settings` (`Prod_sett_Id`,`Description`,`Number`) VALUES 
+ (1,'Fast Moving',7),
+ (2,'Slow Moving',7),
+ (3,'Critical Stock',3);
+/*!40000 ALTER TABLE `product_settings` ENABLE KEYS */;
+
+
+--
+-- Definition of table `products_tbl`
+--
+
+DROP TABLE IF EXISTS `products_tbl`;
+CREATE TABLE `products_tbl` (
+  `Prod_Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Category_Id` int(10) unsigned NOT NULL,
+  `Prod_brand` varchar(255) NOT NULL,
+  `Prod_name` varchar(255) NOT NULL,
+  `Prod_price` decimal(10,2) NOT NULL,
+  `Prod_desc` text NOT NULL,
+  `Prod_image` text NOT NULL,
+  `Status` varchar(45) NOT NULL,
+  `randSalt3` int(11) NOT NULL,
+  `Status_2` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Prod_Id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products_tbl`
+--
+
+/*!40000 ALTER TABLE `products_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `sales_detail`
+--
+
+DROP TABLE IF EXISTS `sales_detail`;
+CREATE TABLE `sales_detail` (
+  `Sales_Id` int(11) NOT NULL,
+  `Prod_Id` int(11) unsigned NOT NULL,
+  `Price` decimal(10,2) NOT NULL,
+  `Quantity` int(11) NOT NULL,
+  `Sales_details_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`Sales_details_Id`),
+  KEY `FK_Prod_Id` (`Prod_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sales_detail`
+--
+
+/*!40000 ALTER TABLE `sales_detail` DISABLE KEYS */;
+INSERT INTO `sales_detail` (`Sales_Id`,`Prod_Id`,`Price`,`Quantity`,`Sales_details_Id`) VALUES 
+ (22,33,'13000.00',1,30),
+ (23,47,'4000.00',1,31),
+ (24,47,'4000.00',1,33),
+ (25,47,'4000.00',1,34),
+ (25,34,'23000.00',1,35),
+ (26,47,'4000.00',1,36),
+ (26,31,'10000.00',1,37),
+ (27,47,'4000.00',1,38),
+ (27,44,'350.00',1,39),
+ (28,34,'23000.00',1,40),
+ (29,39,'23000.00',1,41),
+ (30,30,'17000.00',1,42),
+ (30,32,'9000.00',1,43),
+ (31,47,'8000.00',1,44),
+ (32,47,'4000.00',1,45),
+ (32,36,'41500.00',1,46),
+ (34,34,'23000.00',1,90),
+ (34,44,'900.00',2,92),
+ (35,35,'17000.00',1,93);
+/*!40000 ALTER TABLE `sales_detail` ENABLE KEYS */;
+
+
+--
+-- Definition of table `sales_tbl`
+--
+
+DROP TABLE IF EXISTS `sales_tbl`;
+CREATE TABLE `sales_tbl` (
+  `Sales_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Branch_Id` int(11) unsigned NOT NULL,
+  `Date` date NOT NULL,
+  `Cashier` varchar(255) NOT NULL,
+  `Sold_to` varchar(255) NOT NULL,
+  `OR_no` varchar(255) NOT NULL,
+  `AR_no` varchar(255) NOT NULL,
+  `Subtotal` decimal(10,2) NOT NULL,
+  `Total_discount` int(11) NOT NULL,
+  `Total` decimal(10,2) NOT NULL,
+  `Cash` decimal(10,2) NOT NULL,
+  `Cash_change` decimal(10,2) NOT NULL,
+  `Payment` varchar(255) NOT NULL,
+  `randSalt4` int(11) NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Sales_Id`) USING BTREE,
+  KEY `FK_Branch_Id2` (`Branch_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sales_tbl`
+--
+
+/*!40000 ALTER TABLE `sales_tbl` DISABLE KEYS */;
+INSERT INTO `sales_tbl` (`Sales_Id`,`Branch_Id`,`Date`,`Cashier`,`Sold_to`,`OR_no`,`AR_no`,`Subtotal`,`Total_discount`,`Total`,`Cash`,`Cash_change`,`Payment`,`randSalt4`,`Status`) VALUES 
+ (30,2,'2020-03-05','Richard del','Japeth R De Leon','3112','3312','26000.00',10,'26000.00','30000.00','7000.00','Cheque',1,1),
+ (31,2,'2020-03-05','','Sam Jhon F. Emperoso','','','0.00',0,'0.00','0.00','0.00','',2,1),
+ (32,2,'2020-03-05','Richard del','Sam Jhon F Emperoso','11751','11751','45500.00',5,'45500.00','50000.00','7000.00','Cheque',1,1),
+ (34,2,'2020-04-06','Richard del','Gina P Montana','113','113','24800.00',0,'24800.00','25000.00','200.00','Cheque',1,1),
+ (35,2,'2020-04-06','Richard del','Antonio Pacino Montana','114','114','17000.00',0,'17000.00','17000.00','0.00','Cash',2,1);
+/*!40000 ALTER TABLE `sales_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `selected_class_tbl`
+--
+
+DROP TABLE IF EXISTS `selected_class_tbl`;
+CREATE TABLE `selected_class_tbl` (
+  `Selected_class_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Lesson_Id` varchar(255) NOT NULL,
+  `User_Id` int(11) NOT NULL,
+  `the_Day` int(11) NOT NULL,
+  `the_Time` int(11) NOT NULL,
+  `Date_started` date NOT NULL,
+  `Date_completed` date NOT NULL,
+  `Status` varchar(255) NOT NULL,
+  PRIMARY KEY (`Selected_class_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `selected_class_tbl`
+--
+
+/*!40000 ALTER TABLE `selected_class_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `selected_class_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `services_tbl`
+--
+
+DROP TABLE IF EXISTS `services_tbl`;
+CREATE TABLE `services_tbl` (
+  `service_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) NOT NULL,
+  `image` varchar(45) NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`service_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `services_tbl`
+--
+
+/*!40000 ALTER TABLE `services_tbl` DISABLE KEYS */;
+INSERT INTO `services_tbl` (`service_Id`,`title`,`image`,`price`,`content`,`Status`) VALUES 
+ (1,'Guitar Repair','Banduria1.jpg','750','<p>Euphony Music Center and Studio started at Makati Cinema Square in Pasong Tamo Makati City in the year 2001. This was managed by the founder Ms. ERLINDA M. ALBAY &amp;nbsp;handles the selling of musical instruments such pianos, guitar, keyboard etc. She also acted as the HR personnel in charge of screening qualified sales staff and hiring of qualified music teachers for the music lesson offered by the company.</p>',1),
+ (3,'Musicians for all occasion','LessonHeader.jpg','3000','asdLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy textLorem Ipsum Dolor Sit Amet Con Estas. Lorem Ipsum is a dummy text. Contrary to popular belief is simply a dummy hey',1);
+/*!40000 ALTER TABLE `services_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `stock_in`
+--
+
+DROP TABLE IF EXISTS `stock_in`;
+CREATE TABLE `stock_in` (
+  `Transaction_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Prod_Id` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL,
+  `Quantity_In` int(11) NOT NULL,
+  PRIMARY KEY (`Transaction_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stock_in`
+--
+
+/*!40000 ALTER TABLE `stock_in` DISABLE KEYS */;
+INSERT INTO `stock_in` (`Transaction_Id`,`Prod_Id`,`Date`,`Time`,`Quantity_In`) VALUES 
+ (30,47,'2020-02-11','14:48:55',2),
+ (31,36,'2020-02-11','14:49:03',1),
+ (32,44,'2020-02-19','14:28:17',2),
+ (33,34,'2020-02-19','14:28:24',1),
+ (34,47,'2020-03-05','16:51:40',10),
+ (35,32,'2020-04-06','08:52:31',1),
+ (36,36,'2020-04-06','08:52:40',1),
+ (38,48,'2020-04-06','13:38:19',2),
+ (40,35,'2020-04-06','15:02:29',1);
+/*!40000 ALTER TABLE `stock_in` ENABLE KEYS */;
+
+
+--
+-- Definition of table `stud_balances`
+--
+
+DROP TABLE IF EXISTS `stud_balances`;
+CREATE TABLE `stud_balances` (
+  `Transaction_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `User_Id` int(11) NOT NULL,
+  `OR_no` varchar(255) NOT NULL,
+  `AR_no` varchar(255) NOT NULL,
+  `The_balance` decimal(10,2) NOT NULL,
+  `Date` date NOT NULL,
+  `Trans_time` time NOT NULL,
+  `Cash_tendered` decimal(10,2) NOT NULL,
+  `Total_balance` decimal(10,2) NOT NULL,
+  `Discount` int(11) NOT NULL,
+  `The_change` decimal(10,2) NOT NULL,
+  `Checked_by` int(11) NOT NULL,
+  `Payment` varchar(255) NOT NULL,
+  `randSalt9` int(11) NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Transaction_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stud_balances`
+--
+
+/*!40000 ALTER TABLE `stud_balances` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stud_balances` ENABLE KEYS */;
+
+
+--
+-- Definition of table `stud_class_tbl`
+--
+
+DROP TABLE IF EXISTS `stud_class_tbl`;
+CREATE TABLE `stud_class_tbl` (
+  `Stud_class_Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Class_Id` int(10) unsigned NOT NULL,
+  `User_Id` int(10) unsigned NOT NULL,
+  `randSalt2` varchar(255) NOT NULL,
+  PRIMARY KEY (`Stud_class_Id`),
+  KEY `FK_Class_Id` (`Class_Id`),
+  KEY `FK_Stud_Id` (`User_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stud_class_tbl`
+--
+
+/*!40000 ALTER TABLE `stud_class_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stud_class_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `stud_status_tbl`
+--
+
+DROP TABLE IF EXISTS `stud_status_tbl`;
+CREATE TABLE `stud_status_tbl` (
+  `User_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Status` varchar(255) NOT NULL,
+  `Date_started` date NOT NULL,
+  PRIMARY KEY (`User_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stud_status_tbl`
+--
+
+/*!40000 ALTER TABLE `stud_status_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stud_status_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `teacher_branch_tbl`
+--
+
+DROP TABLE IF EXISTS `teacher_branch_tbl`;
+CREATE TABLE `teacher_branch_tbl` (
+  `Teacher_Id` int(11) NOT NULL,
+  `Branch_Id` int(11) NOT NULL,
+  `T_Branch_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`T_Branch_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teacher_branch_tbl`
+--
+
+/*!40000 ALTER TABLE `teacher_branch_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teacher_branch_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `teacher_lesson_tbl`
+--
+
+DROP TABLE IF EXISTS `teacher_lesson_tbl`;
+CREATE TABLE `teacher_lesson_tbl` (
+  `Tea_less_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Teacher_Id` int(11) NOT NULL,
+  `Lesson_Id` varchar(255) NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Tea_less_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teacher_lesson_tbl`
+--
+
+/*!40000 ALTER TABLE `teacher_lesson_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teacher_lesson_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `teacher_tbl`
+--
+
+DROP TABLE IF EXISTS `teacher_tbl`;
+CREATE TABLE `teacher_tbl` (
+  `Teacher_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `T_Last_name` varchar(255) NOT NULL,
+  `T_First_name` varchar(255) NOT NULL,
+  `T_Middle_name` varchar(255) NOT NULL,
+  `T_Sex` varchar(255) NOT NULL,
+  `T_Birthdate` date NOT NULL,
+  `T_Age` int(11) NOT NULL,
+  `T_Address` varchar(255) NOT NULL,
+  `T_Nationality` varchar(255) NOT NULL,
+  `T_Contact_no` varchar(255) NOT NULL,
+  `T_Profile_img` text NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Teacher_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teacher_tbl`
+--
+
+/*!40000 ALTER TABLE `teacher_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teacher_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `time_tbl`
+--
+
+DROP TABLE IF EXISTS `time_tbl`;
+CREATE TABLE `time_tbl` (
+  `Time_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Time` varchar(255) NOT NULL,
+  `Time_end` varchar(255) NOT NULL,
+  `randSalt` varchar(255) NOT NULL,
+  PRIMARY KEY (`Time_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `time_tbl`
+--
+
+/*!40000 ALTER TABLE `time_tbl` DISABLE KEYS */;
+INSERT INTO `time_tbl` (`Time_Id`,`Time`,`Time_end`,`randSalt`) VALUES 
+ (1,'9','10','AM'),
+ (2,'10','11','AM'),
+ (3,'11','12','AM'),
+ (4,'12','1','PM'),
+ (5,'1','2','PM'),
+ (6,'2','3','PM'),
+ (7,'3','4','PM'),
+ (8,'4','5','PM'),
+ (9,'5','6','PM'),
+ (10,'6','7','PM'),
+ (11,'7','8','PM'),
+ (12,'8','9','PM');
+/*!40000 ALTER TABLE `time_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `user_info_tbl`
+--
+
+DROP TABLE IF EXISTS `user_info_tbl`;
+CREATE TABLE `user_info_tbl` (
+  `User_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Branch_Id` int(11) NOT NULL,
+  `Last_name` varchar(255) NOT NULL,
+  `First_name` varchar(255) NOT NULL,
+  `Middle_name` varchar(255) NOT NULL,
+  `Address` varchar(255) NOT NULL,
+  `Contact_no` varchar(255) NOT NULL,
+  `Birthdate` date NOT NULL,
+  `Age` int(11) NOT NULL,
+  `Sex` varchar(255) NOT NULL,
+  `Nationality` varchar(255) NOT NULL,
+  `Profile_img` text,
+  `Status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`User_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_info_tbl`
+--
+
+/*!40000 ALTER TABLE `user_info_tbl` DISABLE KEYS */;
+INSERT INTO `user_info_tbl` (`User_Id`,`Branch_Id`,`Last_name`,`First_name`,`Middle_name`,`Address`,`Contact_no`,`Birthdate`,`Age`,`Sex`,`Nationality`,`Profile_img`,`Status`) VALUES 
+ (1,1,'Albay','Erlinda','Martinez','Makati City, Chino Roces Ave.','09090909099','1964-09-08',58,'Female','Filipino','1585576888.png',1);
+/*!40000 ALTER TABLE `user_info_tbl` ENABLE KEYS */;
+
+
+--
+-- Definition of table `user_login`
+--
+
+DROP TABLE IF EXISTS `user_login`;
+CREATE TABLE `user_login` (
+  `User_Id` int(11) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Level` varchar(255) NOT NULL,
+  `Date_started` date NOT NULL,
+  `vkey` varchar(255) NOT NULL,
+  `verified` int(11) NOT NULL,
+  `createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`User_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_login`
+--
+
+/*!40000 ALTER TABLE `user_login` DISABLE KEYS */;
+INSERT INTO `user_login` (`User_Id`,`Email`,`Password`,`Level`,`Date_started`,`vkey`,`verified`,`createdate`) VALUES 
+ (1,'headadmin@yahoo.com','$2y$12$3uEsPbgJ.t4DaInZkOC7K.VIBTvsMsGzUP0wJenGCDdmbIMaUATCy','Head Administrator','2019-10-03','',1,'2020-02-28 10:47:30');
+/*!40000 ALTER TABLE `user_login` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

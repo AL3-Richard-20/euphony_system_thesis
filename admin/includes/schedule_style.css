@@ -1,0 +1,47 @@
+
+a{
+  color: black;
+}
+table {
+  width: 100%;
+  background-color: #fff;
+}
+th{
+	 background-color: #1f262e;
+	 color: white;
+	 font-size: 15px;
+}
+th, td {
+  font-weight: unset;
+  padding-right: 10px;
+}
+
+.column100 {
+  width: 130px;
+  padding-left: 25px;
+}
+
+.column100:hover {
+  background-color: #d02737;
+  color: white;
+}
+
+a:hover{
+  color: white;
+}
+
+.column100.column1 {
+  width: 265px;
+  padding-left: 42px;
+}
+
+.row100.head th {
+  padding-top: 24px;
+  padding-bottom: 20px;
+}
+
+.row100 td {
+  padding-top: 18px;
+  padding-bottom: 14px;
+}
+
